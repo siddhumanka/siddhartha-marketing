@@ -2,6 +2,16 @@
   "name": "Product",
   "type": "object",
   "properties": {
+    "brand": {
+      "type": "string",
+      "description": "Brand name (3M, Falcofix, Others)",
+      "enum": [
+        "3M",
+        "Falcofix",
+        "Others"
+      ],
+      "default": "Falcofix"
+    },
     "title": {
       "type": "string",
       "description": "Product name"
