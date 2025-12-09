@@ -1,3 +1,0 @@
-# Place a favicon.ico file here for your app's icon.
-# You can generate one at https://favicon.io/ or use any 32x32 .ico file.
-

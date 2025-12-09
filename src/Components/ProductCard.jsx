@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '../Components/utils';
-import { Card } from "../Components/ui/card";
-import { Badge } from "../Components/ui/badge";
-import { Button } from "../Components/ui/button";
+import { createPageUrl } from '@/utils';
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Package } from "lucide-react";
 import { motion } from "framer-motion";
 import { translations } from './translations.jsx';

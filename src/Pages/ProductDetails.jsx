@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '../Components/utils';
+import {Link} from 'react-router-dom';
+import {createPageUrl} from '../Components/utils';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import LoadingSpinner from '../Components/LoadingSpinner';
-import { Button } from "../Components/ui/button";
-import { Badge } from "../Components/ui/badge";
-import { Card } from "../Components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../Components/ui/select";
-import { ArrowLeft, Package, Phone, MessageCircle, CheckCircle, Info } from 'lucide-react';
-import { motion } from 'framer-motion';
+import {Button} from "../Components/ui/button";
+import {Badge} from "../Components/ui/badge";
+import {Card} from "../Components/ui/card";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../Components/ui/select";
+import {ArrowLeft, CheckCircle, Info, MessageCircle, Package, Phone} from 'lucide-react';
+import {motion} from 'framer-motion';
+import Papa from "papaparse";
 
 export default function ProductDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
 
     const [allProducts, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);  // <-- missing state
 
     useEffect(() => {
         Papa.parse('/products.csv', {
@@ -40,23 +42,23 @@ export default function ProductDetails() {
     const [selectedSize, setSelectedSize] = useState(productId);
 
     if (isLoading) {
-        return <LoadingSpinner />;
+        return <LoadingSpinner/>;
     }
 
     if (!product) {
         return (
             <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-                <Header />
+                <Header/>
                 <div className="max-w-7xl mx-auto px-4 py-20 text-center">
                     <h2 className="text-2xl font-bold text-slate-900 mb-4">Product not found</h2>
                     <Link to={createPageUrl('Home')}>
                         <Button className="bg-blue-600 hover:bg-blue-700">
-                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            <ArrowLeft className="w-4 h-4 mr-2"/>
                             Back to Products
                         </Button>
                     </Link>
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }
@@ -75,12 +77,12 @@ export default function ProductDetails() {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-            <Header />
+            <Header/>
 
             <main className="max-w-7xl mx-auto px-4 py-8 md:py-12">
                 <Link to={createPageUrl('Home')}>
                     <Button variant="ghost" className="mb-6 hover:bg-blue-50">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        <ArrowLeft className="w-4 h-4 mr-2"/>
                         Back to Products
                     </Button>
                 </Link>
@@ -88,9 +90,9 @@ export default function ProductDetails() {
                 <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                     {/* Product Image */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{opacity: 0, x: -20}}
+                        animate={{opacity: 1, x: 0}}
+                        transition={{duration: 0.5}}
                     >
                         <Card className="overflow-hidden bg-white border-0 shadow-xl rounded-2xl sticky top-24">
                             <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 p-8 md:p-12">
@@ -101,7 +103,8 @@ export default function ProductDetails() {
                                     className="w-full h-auto object-contain"
                                 />
                                 {discount > 0 && (
-                                    <Badge className="absolute top-6 left-6 bg-emerald-500 text-white font-bold px-4 py-2 rounded-full text-base">
+                                    <Badge
+                                        className="absolute top-6 left-6 bg-emerald-500 text-white font-bold px-4 py-2 rounded-full text-base">
                                         {discount}% OFF
                                     </Badge>
                                 )}
@@ -111,9 +114,9 @@ export default function ProductDetails() {
 
                     {/* Product Info */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{opacity: 0, x: 20}}
+                        animate={{opacity: 1, x: 0}}
+                        transition={{duration: 0.5}}
                         className="space-y-6"
                     >
                         <div>
@@ -141,20 +144,23 @@ export default function ProductDetails() {
                         {/* Size Selector */}
                         {variants.length > 1 && (
                             <Card className="p-6 bg-blue-50 border-blue-100">
-                                <label className="block text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
-                                    <Package className="w-4 h-4" />
+                                <label
+                                    className="block text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
+                                    <Package className="w-4 h-4"/>
                                     Select Size
                                 </label>
                                 <Select value={selectedSize} onValueChange={setSelectedSize}>
                                     <SelectTrigger className="w-full bg-white border-blue-200 h-12 text-base">
-                                        <SelectValue />
+                                        <SelectValue/>
                                     </SelectTrigger>
                                     <SelectContent>
                                         {variants.map((variant) => (
-                                            <SelectItem key={variant.product_id} value={variant.product_id} className="text-base py-3">
+                                            <SelectItem key={variant.product_id} value={variant.product_id}
+                                                        className="text-base py-3">
                                                 <div className="flex justify-between items-center w-full gap-8">
                                                     <span className="font-medium">{formatWeight(variant.weight)}</span>
-                                                    <span className="text-slate-600">₹{variant.sale_price.toLocaleString('en-IN')}</span>
+                                                    <span
+                                                        className="text-slate-600">₹{variant.sale_price.toLocaleString('en-IN')}</span>
                                                 </div>
                                             </SelectItem>
                                         ))}
@@ -166,7 +172,7 @@ export default function ProductDetails() {
                         {/* Product Details */}
                         <Card className="p-6">
                             <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                                <Info className="w-5 h-5 text-blue-600" />
+                                <Info className="w-5 h-5 text-blue-600"/>
                                 Product Details
                             </h3>
                             <div className="space-y-3">
@@ -196,7 +202,7 @@ export default function ProductDetails() {
                                     'Trusted by professionals'
                                 ].map((feature, idx) => (
                                     <div key={idx} className="flex items-start gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"/>
                                         <span className="text-slate-700">{feature}</span>
                                     </div>
                                 ))}
@@ -214,7 +220,7 @@ export default function ProductDetails() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <MessageCircle className="w-5 h-5 mr-2" />
+                                    <MessageCircle className="w-5 h-5 mr-2"/>
                                     WhatsApp Inquiry
                                 </a>
                             </Button>
@@ -224,7 +230,7 @@ export default function ProductDetails() {
                                 className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 h-14 text-base rounded-xl font-semibold"
                             >
                                 <a href="tel:+919422163831">
-                                    <Phone className="w-5 h-5 mr-2" />
+                                    <Phone className="w-5 h-5 mr-2"/>
                                     Call Now
                                 </a>
                             </Button>
@@ -238,11 +244,11 @@ export default function ProductDetails() {
                             </p>
                             <div className="space-y-2 text-sm">
                                 <p className="flex items-center gap-2 text-slate-700">
-                                    <Phone className="w-4 h-4 text-blue-600" />
+                                    <Phone className="w-4 h-4 text-blue-600"/>
                                     <a href="tel:+919422163831" className="hover:text-blue-600">+91 94221 63831</a>
                                 </p>
                                 <p className="flex items-center gap-2 text-slate-700">
-                                    <MessageCircle className="w-4 h-4 text-green-600" />
+                                    <MessageCircle className="w-4 h-4 text-green-600"/>
                                     Available on WhatsApp
                                 </p>
                             </div>
@@ -253,9 +259,9 @@ export default function ProductDetails() {
                 {/* Related Products */}
                 {variants.length > 1 && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5, delay: 0.3}}
                         className="mt-16"
                     >
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
@@ -275,7 +281,7 @@ export default function ProductDetails() {
                                     <div className="text-center">
                                         <Package className={`w-8 h-8 mx-auto mb-2 ${
                                             variant.product_id === selectedSize ? 'text-blue-600' : 'text-slate-400'
-                                        }`} />
+                                        }`}/>
                                         <p className="font-bold text-slate-900 mb-1">
                                             {formatWeight(variant.weight)}
                                         </p>
@@ -290,7 +296,7 @@ export default function ProductDetails() {
                 )}
             </main>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 }

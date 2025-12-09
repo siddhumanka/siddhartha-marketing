@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "../Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 export default function ProductFilter({ activeFilter, setActiveFilter, activeBrand, setActiveBrand }) {
