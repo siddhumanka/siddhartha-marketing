@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
-import ProductCard from '../Components/ProductCard';
-import ProductFilter from '../Components/ProductFilter';
-import LoadingSpinner from '../Components/LoadingSpinner';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import ProductCard from '../components/ProductCard';
+import ProductFilter from '../components/ProductFilter';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { Package } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '../Components/utils';
-import { Button } from '../Components/ui/button';
-import { translations } from '../Components/translations.jsx';
+import { createPageUrl } from '../components/utils';
+import { Button } from '../components/ui/button';
+import { translations } from '../components/translations.jsx';
 import Papa from 'papaparse';
 
 export default function Home() {
