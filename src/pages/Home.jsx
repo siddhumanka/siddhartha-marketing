@@ -45,7 +45,17 @@ export default function Home() {
             if (activeFilter === 'ebs') typeMatch = product.title === 'Falcofix EBS';
             if (activeFilter === 'wrgold') typeMatch = product.title === 'Falcofix WR Gold';
         }
-
+        else if (activeBrand === '3M' && activeFilter !== 'all') {
+            if (activeFilter === 'masking tape') typeMatch = product.title === '3M Masking Tape';
+            if (activeFilter === 'spray') typeMatch = product.title === '3M Spray';
+            if (activeFilter === 'mirror mount tape') typeMatch = product.title === '3M Mirror Mount Tape';
+            if (activeFilter === 'sharp shooter') typeMatch = product.title === '3M Sharp shooter';
+            if (activeFilter === 'fast bond tape') typeMatch = product.title === '3M Fast Bond Tape';
+        }
+        else if (activeBrand === 'Bluecoat' && activeFilter !== 'all') {
+            if (activeFilter === 'd3') typeMatch = product.title === 'Bluecoat D3';
+            if (activeFilter === 'marine') typeMatch = product.title === 'Bluecoat Marine';
+        }
         return brandMatch && typeMatch;
     });
 
@@ -58,7 +68,7 @@ export default function Home() {
         return acc;
     }, {});
 
-    // Get one representative product per title (smallest size)
+    // Get one representative product per title (smallest type)
     const sortedProducts = Object.values(groupedProducts).map(variants => {
         return variants.sort((a, b) => a.weight - b.weight)[0];
     });
@@ -87,14 +97,31 @@ export default function Home() {
                     {activeBrand === 'Falcofix' && (
                         <div className="flex items-center justify-center gap-6 mb-6">
                             <img
-                                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69355685b7ba1c4a22697f76/8cead059c_pidilite-logo-1.png"
+                                src="https://assets.pidilite.com/is/image/pidilite/pidilite-logo-1?ts=1717678989820&dpr=off"
                                 alt="Pidilite"
                                 crossOrigin="anonymous"
                                 className="h-16 md:h-20 object-contain"
                             />
                             <img
-                                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69355685b7ba1c4a22697f76/c45c91ab2_falcofix-brand.jpg"
+                                src="https://assets.pidilite.com/is/image/pidilite/falcofix-brand-desktop?ts=1747042514846&dpr=off"
                                 alt="Falcofix"
+                                crossOrigin="anonymous"
+                                className="h-16 md:h-20 object-contain"
+                            />
+                        </div>
+                    )}
+
+                    {activeBrand === 'Bluecoat' && (
+                        <div className="flex items-center justify-center gap-6 mb-6">
+                            <img
+                                src="https://assets.pidilite.com/is/image/pidilite/pidilite-logo-1?ts=1717678989820&dpr=off"
+                                alt="Pidilite"
+                                crossOrigin="anonymous"
+                                className="h-16 md:h-20 object-contain"
+                            />
+                            <img
+                                src="https://assets.pidilite.com/is/image/pidilite/bluecoat-brand-desktop?ts=1747042880987&dpr=off"
+                                alt="Bluecoat"
                                 crossOrigin="anonymous"
                                 className="h-16 md:h-20 object-contain"
                             />
@@ -104,7 +131,7 @@ export default function Home() {
                     {activeBrand === '3M' && (
                         <div className="flex items-center justify-center mb-6">
                             <img
-                                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69355685b7ba1c4a22697f76/b35f79d2b_3mlogo.png"
+                                src="https://www.3mindia.in/3m_theme_assets/themes/3MTheme/assets/images/unicorn/Logo.svg"
                                 alt="3M"
                                 crossOrigin="anonymous"
                                 className="h-16 md:h-20 object-contain"
@@ -114,20 +141,23 @@ export default function Home() {
 
                     <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
                         {activeBrand === 'all' ? t.ourInventory :
+                            activeBrand === 'Bluecoat' && activeFilter === 'all' ? t.bluecoatRange :
+                                activeBrand === 'Bluecoat' && activeFilter === 'd3' ? t.bluecoatD3 :
+                                    activeBrand === 'Bluecoat' && activeFilter === 'marine' ? t.bluecoatMarine :
                             activeBrand === 'Falcofix' && activeFilter === 'all' ? t.falcofixRange :
                                 activeBrand === 'Falcofix' && activeFilter === 'wr' ? t.falcofixWR :
                                     activeBrand === 'Falcofix' && activeFilter === 'um' ? t.falcofixUM :
                                         activeBrand === 'Falcofix' && activeFilter === 'ebs' ? t.falcofixEBS :
                                             activeBrand === 'Falcofix' && activeFilter === 'wrgold' ? t.falcofixWRGold :
-                                                activeBrand === '3M' ? t.threeMProducts :
-                                                    t.otherProducts}
+                                                activeBrand === '3M' ? t.threeMProducts : t.otherProducts
+                        }
                     </h2>
                     <p className="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
                         {activeBrand === 'all'
                             ? t.browseInventory
                             : activeBrand === 'Falcofix' && activeFilter === 'all'
                                 ? t.industrialGrade
-                                : t.selectSize}
+                                : t.selectType}
                     </p>
                 </motion.div>
 

@@ -7,17 +7,34 @@ export default function ProductFilter({ activeFilter, setActiveFilter, activeBra
         { id: 'all', label: 'All Brands' },
         { id: '3M', label: '3M' },
         { id: 'Falcofix', label: 'Falcofix' },
-        { id: 'Others', label: 'Others' }
+        { id: 'Bluecoat', label: 'Bluecoat' },
     ];
 
-    const filters = activeBrand === 'Falcofix' ? [
-        { id: 'all', label: 'All Products' },
-        { id: 'wr', label: 'Falcofix WR' },
-        { id: 'um', label: 'Ultra Marine' },
-        { id: 'ebs', label: 'Falcofix EBS' },
-        { id: 'wrgold', label: 'WR Gold' },
-        { id: 'others', label: 'Others' }
-    ] : [];
+    const filterOptions = {
+        Falcofix: [
+            { id: 'all', label: 'All Products' },
+            { id: 'wr', label: 'Falcofix WR' },
+            { id: 'um', label: 'Ultra Marine' },
+            { id: 'ebs', label: 'Falcofix EBS' },
+            { id: 'fb', label: 'Falco Bond' },
+            { id: 'wrgold', label: 'WR Gold' },
+        ],
+        '3M': [
+            { id: 'all', label: 'All Products' },
+            { id: 'masking tape', label: '3M Masking Tape' },
+            { id: 'spray', label: '3M Spray' },
+            { id: 'mirror mount tape', label: '3M Mirror Mount Tape' },
+            { id: 'sharp shooter', label: '3M Sharp shooter' },
+            { id: 'fast bond tape', label: '3M Fast Bond Tape' },
+        ],
+        Bluecoat: [
+            { id: 'all', label: 'All Products' },
+            { id: 'd3', label: 'Bluecoat D3' },
+            { id: 'marine', label: 'Bluecoat Marine' },
+        ],
+    };
+
+    const filters = filterOptions[activeBrand] || [];
 
     return (
         <div className="space-y-4">

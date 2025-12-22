@@ -23,8 +23,8 @@ export default function ProductCard({ product, allProducts = [] }) {
     const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
 
     const formatWeight = (weight) => {
-        if (weight < 1) return `${weight * 1000}g`;
-        return `${weight} KG`;
+        if (weight < 1) return `${weight * 1000}`;
+        return `${weight}`;
     };
 
     // Get all sizes for this product
@@ -60,7 +60,7 @@ export default function ProductCard({ product, allProducts = [] }) {
                         </div>
                         {variants.length > 1 && (
                             <Badge className="absolute top-4 left-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded-full">
-                                {variants.length} Sizes
+                                {variants.length} Types
                             </Badge>
                         )}
                         {discount > 0 && variants.length === 1 && (
@@ -87,12 +87,12 @@ export default function ProductCard({ product, allProducts = [] }) {
                     </Link>
 
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <Package className="w-4 h-4 text-slate-400" />
-                            <span className="text-sm text-slate-500 font-medium">
-                                {variants.length > 1 ? `${t.sizes}: ${sizeRange}` : `${t.size}: ${sizeRange}`}
-                            </span>
-                        </div>
+                        {/*<div className="flex items-center gap-2 mb-2">*/}
+                        {/*    <Package className="w-4 h-4 text-slate-400" />*/}
+                        {/*    <span className="text-sm text-slate-500 font-medium">*/}
+                        {/*        {variants.length > 1 ? `${t.sizes}: ${sizeRange}` : `${t.size}: ${sizeRange}`}*/}
+                        {/*    </span>*/}
+                        {/*</div>*/}
                         <div className="flex items-baseline gap-3">
                             <span className="text-2xl font-bold text-slate-900">
                                 {priceRange}

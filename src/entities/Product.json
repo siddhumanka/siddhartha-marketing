@@ -44,9 +44,9 @@
       "type": "number",
       "description": "Stock quantity"
     },
-    "weight": {
+    "type": {
       "type": "number",
-      "description": "Product weight in KG"
+      "description": "Product type"
     },
     "product_type": {
       "type": "string",
