@@ -195,14 +195,23 @@ export default function ProductDetails() {
                         <Card className="p-6 bg-gradient-to-br from-blue-50 to-white">
                             <h3 className="font-semibold text-lg mb-4">Key Features</h3>
                             <div className="space-y-3">
-                                {[
-                                    'High-quality industrial adhesive',
-                                    'Strong bonding performance',
-                                    'Suitable for various applications',
-                                    'Trusted by professionals'
-                                ].map((feature, idx) => (
+                                {(
+                                    selectedProduct?.title?.toLowerCase().includes("shooter")
+                                        ? [
+                                            "High-quality industrial adhesive remover",
+                                            "Strong removal performance",
+                                            "Suitable for various applications",
+                                            "Trusted by professionals",
+                                        ]
+                                        : [
+                                            "High-quality industrial adhesive",
+                                            "Strong bonding performance",
+                                            "Suitable for various applications",
+                                            "Trusted by professionals",
+                                        ]
+                                ).map((feature, idx) => (
                                     <div key={idx} className="flex items-start gap-3">
-                                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"/>
+                                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                                         <span className="text-slate-700">{feature}</span>
                                     </div>
                                 ))}
